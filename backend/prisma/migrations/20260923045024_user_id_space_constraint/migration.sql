@@ -1,0 +1,2 @@
+ALTER TABLE "User"
+ADD CONSTRAINT no_space CHECK ("id" NOT LIKE '% %');
