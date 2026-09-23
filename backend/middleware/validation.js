@@ -1,5 +1,6 @@
 import { body, validationResult } from "express-validator"
 import { prisma } from "../lib/prisma.js"
+import bcrypt from "bcryptjs"
 
 export function throwerHelper(req, res, next) {
     const errorStatusCode = req.errorStatusCode ? req.errorStatusCode : 400
@@ -16,7 +17,7 @@ class Validation {
 }
 
 export class AccountValidation extends Validation {
-    static username = body("username").trim().notEmpty().withMessage("Please provide a username")
+    static username = () => body("username").trim().notEmpty().withMessage("Please provide a username")
         .custom(username => {
             if (username.split("").includes(" "))
                 throw new Error("Username must not include spaces")
@@ -24,7 +25,7 @@ export class AccountValidation extends Validation {
         }).bail()
         .customSanitizer(username => username.toLowerCase())
         
-    static usernameCreation = this.username.custom(async (username, {req}) => {
+    static usernameCreation = this.username().custom(async (username, {req}) => {
         const user = await prisma.user.findMany({ where: {
             id: username
         }})
@@ -35,16 +36,42 @@ export class AccountValidation extends Validation {
         }
     })
 
-    static password = body("password").notEmpty().withMessage("Password must not be empty")
+    static usernameExists = this.username().custom(async (username, {req}) => {
+        const user = await prisma.user.findFirst({ where: {
+            id: username
+        }})
+
+        if (user.length == 0) {
+            req.errorStatusCode = 400
+            throw new Error("User doesn't exist")
+        }
+        req.user = user
+    })
+
+    static password = () => body("password").notEmpty().withMessage("Password must not be empty")
+    
+    static passwordLogin = this.password().bail()
+        .custom( async (password, {req}) => {
+            const match = await bcrypt.compare(password, req.user.password)
+            if (!match)
+                throw new Error("Invalid password")
+        })
+
     static confirmPassword = body("confirmPassword").notEmpty().withMessage("Please confirm your password")
         .custom((cPass, {req}) => cPass == req.body.password)
 
+    
     static displayName = body("displayName").trim().notEmpty().withMessage("Display name must not be empty")
 
     static accountCreation = [
         this.usernameCreation,
-        this.password,
+        this.password(),
         this.confirmPassword,
         this.displayName
+    ]
+
+    static login = [
+        this.usernameExists,
+        this.passwordLogin
     ]
 }
