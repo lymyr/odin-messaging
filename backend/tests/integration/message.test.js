@@ -48,7 +48,7 @@ describe("/messages/:userId", () => {
     test("malicious user sending message", async () => {
         const message = "meet me @ bulma's crib"
         const res = await request(app)
-            .post(`/messages/${receiver.id}`)
+            .post(`/v1/messages/${receiver.id}`)
             .set("Authorization", "bearer token")
             .send({ message })
 
@@ -60,7 +60,7 @@ describe("/messages/:userId", () => {
 
     test("malicious retrieve messages", async () => {
         const res = await request(app)
-            .get(`/messages/${receiver.id}`)
+            .get(`/v1/messages/${receiver.id}`)
             .set("Authorization", "bearer token")
         
         expect(res.statusCode).toBe(400)
@@ -72,7 +72,7 @@ describe("/messages/:userId", () => {
     test("send message", async () => {
         const message = "hi vegeta"
         const res = await request(app)
-            .post(`/messages/${receiver.id}`)
+            .post(`/v1/messages/${receiver.id}`)
             .set("Authorization", "bearer token")
             .send({ message })
 
@@ -83,7 +83,7 @@ describe("/messages/:userId", () => {
 
     test("retrieve messages", async () => {
         const res = await request(app)
-            .get(`/messages/${receiver.id}`)
+            .get(`/v1/messages/${receiver.id}`)
             .set("Authorization", "bearer token")
         
         expect(res.body.data).toEqual({

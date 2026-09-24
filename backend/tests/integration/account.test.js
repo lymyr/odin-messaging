@@ -28,7 +28,7 @@ describe("account creation", () => {
     
     test("creates account", async () => {
         const res = await request(app)
-            .post("/register")
+            .post("/v1/register")
             .send(payloadTemplate)
         
         expect(prismaUserMock.mock.calls).toHaveLength(1)
@@ -37,7 +37,7 @@ describe("account creation", () => {
 
     test("restrict username spaces", async () => {
         const res = await request(app)
-            .post("/register")
+            .post("/v1/register")
             .send({
                 ...payloadTemplate,
                 username: "space space"
@@ -48,7 +48,7 @@ describe("account creation", () => {
 
     test("restrict invalid confirm password", async () => {
         const res = await request(app)
-            .post("/register")
+            .post("/v1/register")
             .send({...payloadTemplate, confirmPassword: "onepiece"})
 
         expect(prismaUserMock.mock.calls).toHaveLength(0)
@@ -63,7 +63,7 @@ describe("account creation", () => {
         }})
         prismaUserMock.mockClear()
         const res = await request(app)
-            .post("/register")
+            .post("/v1/register")
             .send({...payloadTemplate, username: "naruto"})
 
         expect(prismaUserMock.mock.calls).toHaveLength(0)
@@ -74,7 +74,7 @@ describe("account creation", () => {
 describe("login", () => {
     beforeAll(async () => {
         await request(app)
-            .post("/register")
+            .post("/v1/register")
             .send({...payloadTemplate})
     })
     afterAll(async () => {
@@ -83,7 +83,7 @@ describe("login", () => {
     
     test("correct credentials", async () => {
         const res = await request(app)
-            .post("/login")
+            .post("/v1/login")
             .send(payloadTemplate)
         expect(res.body.data).toEqual({
             token: expect.anything()
@@ -92,7 +92,7 @@ describe("login", () => {
 
     test("incorrect credentials", async () => {
         const res = await request(app)
-            .post("/login")
+            .post("/v1/login")
             .send({...payloadTemplate, password:"sdkfgsdlkf"})
         
         expect(res.body).toEqual({
