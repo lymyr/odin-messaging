@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors"
 import indexRouter from "./routes/indexRouter.js";
+import messageRouter from "./routes/messageRouter.js";
 
 process.loadEnvFile()
 
@@ -20,5 +21,6 @@ if ( process.env.NODE_ENV != "test" ) {
 }
 
 app.use("/", indexRouter)
+app.use("/messages", messageRouter)
 
 export default app

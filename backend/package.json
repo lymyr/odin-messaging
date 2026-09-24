@@ -5,7 +5,7 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "test-db-setup": "NODE_ENV=test npx prisma migrate deploy && npx prisma generate",
     "migrate": "npx prisma migrate deploy && NODE_ENV=test npx prisma migrate deploy"
   },

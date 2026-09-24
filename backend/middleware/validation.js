@@ -1,4 +1,4 @@
-import { body, validationResult } from "express-validator"
+import { body, param, validationResult } from "express-validator"
 import { prisma } from "../lib/prisma.js"
 import bcrypt from "bcryptjs"
 
@@ -74,4 +74,20 @@ export class AccountValidation extends Validation {
         this.usernameExists,
         this.passwordLogin
     ]
+}
+
+export class MessageValidation extends Validation {
+    static message = body("message").trim().notEmpty()
+        .withMessage("Message shouldn't be empty")
+        .isLength({max: 255}).withMessage("Message should not exceed 255 characters")
+}
+
+export class UserValidation extends Validation {
+    static id = param("userId").exists().withMessage("Please add a userId").bail()
+        .toLowerCase()
+        .custom(async (id) => {
+            const user = await prisma.user.findFirst({ where: { id }})
+            if (!user)
+                throw new Error("User not found")
+        })
 }

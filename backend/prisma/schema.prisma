@@ -22,9 +22,11 @@ model User {
 }
 
 model Message {
-  id        Int      @id @default(autoincrement())
-  user      User[]   @relation("messageFrom")
-  recipient User[]   @relation("messageTo")
-  text      String
-  dateAdded DateTime @default(now())
+  id          Int      @id @default(autoincrement())
+  userId      String
+  recipientId String
+  user        User     @relation("messageFrom", fields: [userId], references: [id], onDelete: Cascade)
+  recipient   User     @relation("messageTo", fields: [recipientId], references: [id], onDelete: Cascade)
+  text        String
+  dateAdded   DateTime @default(now())
 }
