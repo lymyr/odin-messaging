@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { sendMessage } from "../controllers/messageController.js";
+import { retrieveMessages, sendMessage } from "../controllers/messageController.js";
 import { isValidJwt } from "../middleware/isValidJwt.js";
 import { MessageValidation, throwerHelper, UserValidation } from "../middleware/validation.js";
 import refreshToken from "../middleware/refreshToken.js";
@@ -13,6 +13,12 @@ messageRouter.post("/:userId",
     UserValidation.id,
     throwerHelper,
     sendMessage
+)
+
+messageRouter.get("/:userId", 
+    UserValidation.id,
+    throwerHelper,
+    retrieveMessages
 )
 
 export default messageRouter

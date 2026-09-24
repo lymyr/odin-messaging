@@ -5,7 +5,12 @@ afterEach(() => {
     jest.clearAllMocks()
 })
 
-const req = { body: {token: "token"} }
+const req = { 
+    headers: {
+        authorization: "bearer token"
+    } 
+}
+
 const res = {
     status: jest.fn(() => res),
     json: jest.fn()
