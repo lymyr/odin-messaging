@@ -1,26 +1,41 @@
 import { Router } from "express";
-import { retrieveMessagesByUserId, sendMessageByUserId } from "../controllers/chatController.js";
+import { getChats, getMessages, retrieveMessagesByUserId, sendMessage, sendMessageByUserId } from "../controllers/chatController.js";
 import { isValidJwt } from "../middleware/isValidJwt.js";
-import { MessageValidation, throwerHelper, UserValidation } from "../middleware/validation.js";
+import { ChatValidation, MessageValidation, throwerHelper, UserValidation } from "../middleware/validation.js";
 import refreshToken from "../middleware/refreshToken.js";
 
-const messageRouter = Router()
+const chatRouter = Router()
 
-messageRouter.use(isValidJwt, refreshToken)
+chatRouter.use(isValidJwt, refreshToken)
 
+chatRouter.get("/", getChats)
 
 // routes for when user uses search bar
-messageRouter.post("/user/:userId", 
+chatRouter.post("/user/:userId", 
     MessageValidation.message,
     UserValidation.id,
     throwerHelper,
     sendMessageByUserId
 )
 
-messageRouter.get("/user/:userId", 
+chatRouter.get("/user/:userId", 
     UserValidation.id,
     throwerHelper,
     retrieveMessagesByUserId
 )
 
-export default messageRouter
+// routes for main chat menu where it shows all available chats
+chatRouter.use("/:chatId",
+    ChatValidation.isParticipant,
+    throwerHelper,
+)
+
+chatRouter.get("/:chatId", getMessages)
+
+chatRouter.post("/:chatId", 
+    MessageValidation.message,
+    throwerHelper,
+    sendMessage
+)
+
+export default chatRouter

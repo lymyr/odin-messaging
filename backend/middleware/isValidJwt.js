@@ -13,6 +13,6 @@ export function isValidJwt(req, res, next) {
         next()
     }
     catch(e) {
-        res.status(400).json({errors: {token: e}})
+        res.status(401).json({errors: {token: e}})
     }
 }

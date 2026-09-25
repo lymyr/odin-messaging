@@ -91,3 +91,37 @@ export class UserValidation extends Validation {
                 throw new Error("User not found")
         })
 }
+
+
+export class ChatValidation extends Validation {
+    static id = () => param("chatId").exists().withMessage("Please add a chatId")
+        .isInt().withMessage("chatId must be an integer").bail()
+        .toInt()
+    
+    static isParticipant = this.id().custom(async (id, {req}) => {
+        const chat = await prisma.chat.findFirst({
+            where: { id },
+            include: {
+                participants: {
+                    select: {
+                        userId: true
+                    }
+                }
+            }
+        })
+
+        let isAuth = false
+        for (const p of chat.participants) {
+            if (p.userId == req.decodedToken.id) {
+                isAuth = true
+                break
+            }
+        }
+
+        if (!isAuth) {
+            req.errorStatusCode = 403
+            throw new Error("You are not allowed to snoop in other people's chat >:(")
+        }
+        req.chat = chat
+    })
+}
