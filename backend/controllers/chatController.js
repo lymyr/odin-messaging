@@ -20,6 +20,15 @@ export const getChats = async (req, res) => {
                         }
                     }
                 }
+            },
+            messages: {
+                take: 1,
+                select: {
+                    text: true,
+                },
+                orderBy: {
+                    dateAdded: "desc"
+                }
             }
         }
     })
