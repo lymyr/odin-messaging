@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { retrieveMessages, sendMessage } from "../controllers/chatController.js";
+import { retrieveMessagesByUserId, sendMessageByUserId } from "../controllers/chatController.js";
 import { isValidJwt } from "../middleware/isValidJwt.js";
 import { MessageValidation, throwerHelper, UserValidation } from "../middleware/validation.js";
 import refreshToken from "../middleware/refreshToken.js";
@@ -14,13 +14,13 @@ messageRouter.post("/user/:userId",
     MessageValidation.message,
     UserValidation.id,
     throwerHelper,
-    sendMessage
+    sendMessageByUserId
 )
 
 messageRouter.get("/user/:userId", 
     UserValidation.id,
     throwerHelper,
-    retrieveMessages
+    retrieveMessagesByUserId
 )
 
 export default messageRouter

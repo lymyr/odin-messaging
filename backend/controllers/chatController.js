@@ -1,7 +1,7 @@
 import { getChat, createChat } from "../helpers/chatQueries.js"
 import { prisma } from "../lib/prisma.js"
 
-export const sendMessage = async (req, res) => {
+export const sendMessageByUserId = async (req, res) => {
     let chat = await getChat([req.decodedToken.id, req.params.userId])
     if (!chat)
         chat = await createChat([req.decodedToken.id, req.params.userId])
@@ -21,7 +21,7 @@ export const sendMessage = async (req, res) => {
     })
 }
 
-export const retrieveMessages = async (req, res) => {
+export const retrieveMessagesByUserId = async (req, res) => {
    const messages = await prisma.message.findMany({
         where: {
             chat: {
