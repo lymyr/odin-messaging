@@ -25,10 +25,11 @@ beforeAll(async () => {
 
 afterAll(async () => {
     await prisma.user.deleteMany()
+    await prisma.chat.deleteMany()
     await prisma.$disconnect()
 })
 
-describe("/messages/:userId", () => {
+describe("/chats/user/:userId", () => {
     jest.spyOn(jwt, "verify")
         .mockImplementationOnce(() => {
             throw new Error()
@@ -48,7 +49,7 @@ describe("/messages/:userId", () => {
     test("malicious user sending message", async () => {
         const message = "meet me @ bulma's crib"
         const res = await request(app)
-            .post(`/v1/messages/${receiver.id}`)
+            .post(`/v1/chats/user/${receiver.id}`)
             .set("Authorization", "bearer token")
             .send({ message })
 
@@ -60,7 +61,7 @@ describe("/messages/:userId", () => {
 
     test("malicious retrieve messages", async () => {
         const res = await request(app)
-            .get(`/v1/messages/${receiver.id}`)
+            .get(`/v1/chats/user/${receiver.id}`)
             .set("Authorization", "bearer token")
         
         expect(res.statusCode).toBe(400)
@@ -72,7 +73,7 @@ describe("/messages/:userId", () => {
     test("send message", async () => {
         const message = "hi vegeta"
         const res = await request(app)
-            .post(`/v1/messages/${receiver.id}`)
+            .post(`/v1/chats/user/${receiver.id}`)
             .set("Authorization", "bearer token")
             .send({ message })
 
@@ -83,11 +84,24 @@ describe("/messages/:userId", () => {
 
     test("retrieve messages", async () => {
         const res = await request(app)
-            .get(`/v1/messages/${receiver.id}`)
+            .get(`/v1/chats/user/${receiver.id}`)
             .set("Authorization", "bearer token")
-        
+
         expect(res.body.data).toEqual({
             messages: expect.anything()
+        })
+    })
+
+    
+})
+
+describe("/chats", () => {
+    test("retrieve chats", async () => {
+        const res = await request(app)
+            .get(`/v1/chats`)
+            .set("Authorization", "bearer token")
+        expect(res.body.data).toEqual({
+            chats: expect.anything()
         })
     })
 })
