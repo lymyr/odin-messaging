@@ -5,7 +5,7 @@ process.loadEnvFile()
 export default function refreshToken(req, res, next) {
     const refreshed = {
         ...req.decodedToken,
-        exp: tokenLife
+        exp: tokenLife()
     }
     const refreshToken = jwt.sign(refreshed, process.env.JWT_SECRET)
     req.refreshToken = refreshToken

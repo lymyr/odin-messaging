@@ -1,1 +1,1 @@
-export default Math.floor(Date.now()/1000) + (60*30)
+export default () => Math.floor(Date.now()/1000) + (60*30)

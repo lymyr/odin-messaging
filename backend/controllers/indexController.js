@@ -23,7 +23,7 @@ export const login = async (req, res) => {
     const token = jwt.sign({
         ...user,
         iat: Math.floor(Date.now()/1000),
-        exp: tokenLife
+        exp: tokenLife()
     }, process.env.JWT_SECRET)
     
     res.json({data: {token}})
