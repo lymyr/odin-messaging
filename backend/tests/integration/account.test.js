@@ -1,6 +1,7 @@
 import request from "supertest"
 import app from "../../app.js"
 import { prisma } from "../../lib/prisma.js"
+import jwt from "jsonwebtoken"
 
 afterEach(async () => {
     jest.clearAllMocks()
@@ -98,5 +99,48 @@ describe("login", () => {
         expect(res.body).toEqual({
             errors: expect.anything()
         })
+    })
+})
+
+describe("account edit", () => {
+    const user = {
+        id: "goku",
+        name: "Son Goku",
+        password: "dragon ballz"
+    }
+
+    beforeAll(async () => {
+        await prisma.user.createMany({
+            data: [
+                user,
+            ]
+        })
+        jest.spyOn(jwt, "verify").mockReturnValue({...user, iat: 1, exp: 2})
+        jest.spyOn(jwt, "sign").mockReturnValue("token")
+    })
+
+    afterAll(async () => {
+        await prisma.user.deleteMany()
+        await prisma.$disconnect()
+    })
+
+    test("edit user details", async () => {
+        const editDetails = {
+            displayName: "GOKU BLACK",
+            description: "I AM GOKU BLACK"
+        }
+
+        const res = await request(app)
+            .patch(`/v1/users`)
+            .set("Authorization", "bearer token")
+            .send(editDetails)
+        
+        expect(res.body.data).toEqual({
+            token: "token",
+            user: expect.anything()
+        })
+
+        expect(res.body.data.user.name).toBe(editDetails.displayName)
+        expect(res.body.data.user.description).toBe(editDetails.description)
     })
 })

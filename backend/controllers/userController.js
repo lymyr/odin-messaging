@@ -32,3 +32,23 @@ export const getUser = (req, res) => {
         }
     })
 }
+
+export const updateUserDetails = async (req, res) => {
+    const user = await prisma.user.update({
+        where: {
+            id: req.decodedToken.id
+        },
+        data: {
+            name: req.body.displayName,
+            description: req.body.description
+        }
+    })
+    delete user.password
+
+    res.json({
+        data: {
+            token: req.refreshToken,
+            user
+        }
+    })
+}

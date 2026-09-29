@@ -65,6 +65,8 @@ export class AccountValidation extends Validation {
     
     static displayName = body("displayName").trim().notEmpty().withMessage("Display name must not be empty")
 
+    static description = body("description").isLength({max: 67}).withMessage("description should not exceed 67 characters")
+
     static accountCreation = [
         this.usernameCreation,
         this.password(),

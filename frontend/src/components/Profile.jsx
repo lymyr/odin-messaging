@@ -1,12 +1,14 @@
 import { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router"
 import CredContext from "../contexts/CredContext"
+import ProfileEdit from "./ProfileEdit"
 
 export default function Profile() {
     const [user, setUser] = useState()
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState()
-    const [token, setToken] = useContext(CredContext)
+    const [token, setToken, loggedUser] = useContext(CredContext)
+    const [isEdit, setIsEdit] = useState(false)
     const params = useParams()
 
     useEffect(() => {
@@ -53,9 +55,20 @@ export default function Profile() {
                 <div>
                     <div>
                         <h1>{user?.id}</h1>
-                        {/* todo: add edit button if id == user.id */}
-                        <p>{user?.name}</p>
-                        <p>{user?.description}</p>
+                        {
+                            !isEdit ?
+                                <>
+                                    <p>{user?.name}</p>
+                                    <p>{user?.description}</p>
+                                </>
+                            :
+                                <ProfileEdit user={user} setIsEdit={setIsEdit} setUser={setUser}/>
+                        }
+                        
+                        {
+                            user.id == loggedUser.id && !isEdit &&
+                                <button onClick={() => setIsEdit(true)}>Edit</button>
+                        }
                     </div>
                     <Link to={`/message/${user?.id}`}>
                         <button>Message</button>
