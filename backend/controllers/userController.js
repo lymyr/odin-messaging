@@ -22,3 +22,13 @@ export const getUsers = async (req, res) => {
         }
     })
 }
+
+export const getUser = (req, res) => {
+    delete req.user.password
+    res.json({
+        data: {
+            user: req.user,
+            token: req.refreshToken
+        }
+    })
+}

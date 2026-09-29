@@ -41,9 +41,9 @@ export class AccountValidation extends Validation {
             id: username
         }})
 
-        if (user.length == 0) {
-            req.errorStatusCode = 400
-            throw new Error("User doesn't exist")
+        if (!user) {
+            req.errorStatusCode = 404
+            throw new Error("User doesn't exist. Please register first")
         }
         req.user = user
     })
@@ -52,9 +52,11 @@ export class AccountValidation extends Validation {
     
     static passwordLogin = this.password().bail()
         .custom( async (password, {req}) => {
-            const match = await bcrypt.compare(password, req.user.password)
-            if (!match)
-                throw new Error("Invalid password")
+            if (req.user) {
+                const match = await bcrypt.compare(password, req.user.password)
+                if (!match)
+                    throw new Error("Invalid password")
+            }
         })
 
     static confirmPassword = body("confirmPassword").notEmpty().withMessage("Please confirm your password")
@@ -85,10 +87,13 @@ export class MessageValidation extends Validation {
 export class UserValidation extends Validation {
     static id = param("userId").exists().withMessage("Please add a userId").bail()
         .toLowerCase()
-        .custom(async (id) => {
+        .custom(async (id, {req}) => {
             const user = await prisma.user.findFirst({ where: { id }})
-            if (!user)
+            if (!user) {
+                req.errorStatusCode = 404
                 throw new Error("User not found")
+            } 
+            req.user = user
         })
 }
 

@@ -22,7 +22,8 @@ const userList = [
     {
         id: "vegeta",
         name: "super duper saiyan",
-        password: "dragon ballz"
+        password: "dragon ballz",
+        description: "i'm the prince of all saiyans"
     },
     {
         id: "zoro",
@@ -75,5 +76,34 @@ describe("/users", () => {
                 }).slice(3)
             )
         })
+    })
+
+    describe("/:userId", () => {
+        test("returns user details", async () => {
+            const res = await request(app)
+                .get(`/v1/users/${userList[3].id}`)
+                .set("authorization", "bearer token")
+
+            expect(res.body.data).toEqual(expect.objectContaining({
+                user: {
+                    id: expect.anything(),
+                    name: expect.anything(),
+                    description: expect.anything()
+                },
+                token: "token"
+            }))
+        })
+
+        test("returns not found", async () => {
+            const res = await request(app)
+                .get(`/v1/users/randomuserlmao`)
+                .set("authorization", "bearer token")
+
+            expect(res.body).toEqual({
+                errors: expect.anything()
+            })
+            expect(res.status).toBe(404)
+        })
+        
     })
 })
