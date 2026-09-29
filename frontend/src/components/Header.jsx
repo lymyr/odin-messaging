@@ -38,7 +38,7 @@ export default function Header() {
                     <Link to={"/users"}>
                         <button>All users</button>
                     </Link>
-                    <Link to={"/profile"}>
+                    <Link to={`/users/${user?.id}`}>
                         <button>{user?.id}</button>
                     </Link> 
                 </nav>

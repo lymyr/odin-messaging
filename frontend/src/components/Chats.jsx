@@ -1,10 +1,11 @@
 import { useContext, useEffect, useState } from "react"
 import CredContext from "../contexts/CredContext.js"
+import { Link } from "react-router"
 
 export default function Chats() {
-    const [token, setToken] = useContext(CredContext)
+    const [token, setToken, user] = useContext(CredContext)
 
-    const [chats, setChats] = useState()
+    const [chats, setChats] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState()
 
@@ -56,7 +57,30 @@ export default function Chats() {
                 <h1>{error}</h1>
             : chats.length == 0 ?
                 <h1>Chat is empty</h1>
-            : <h1>nice</h1>
+            : 
+                <div>
+                    {
+                        chats.map(c => {
+                            return (
+                                <Link key={c.id} to={`/chats/${c.id}`}>
+                                    <div>
+                                        {
+                                            c.participants.filter(participant => participant.user.id != user.id).map(participant => {
+                                                return (
+                                                    <div key={participant.user.id}>
+                                                        <p>{participant.user.name}</p>
+                                                        <p>{participant.user.id}</p>
+                                                    </div>     
+                                                )
+                                            })
+                                        }
+                                        <p>{c.messages[0].text}</p>
+                                    </div>
+                                </Link>
+                            )
+                        })
+                    }
+                </div>
         }
         
         </>

@@ -4,6 +4,7 @@ import Register from "./pages/Register";
 import Chats from "./components/Chats"
 import UserList from "./components/UserList"
 import Profile from "./components/Profile";
+import Message from "./components/Message";
 
 export default [
     {
@@ -31,6 +32,14 @@ export default [
             {
                 path: "users/:userId",
                 element: <Profile />
+            },
+            {
+                path: "message/:userId",
+                element: <Message />
+            },
+            {
+                path: "chats/:chatId",
+                element: <Message />
             }
         ]
     }

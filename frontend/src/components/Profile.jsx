@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { useParams } from "react-router"
+import { Link, useParams } from "react-router"
 import CredContext from "../contexts/CredContext"
 
 export default function Profile() {
@@ -51,11 +51,16 @@ export default function Profile() {
                 <h1>{error}</h1>
             : 
                 <div>
-                    <h1>{user.id}</h1>
-                    <p>{user.name}</p>
-                    <p>{user.description}</p>
+                    <div>
+                        <h1>{user?.id}</h1>
+                        {/* todo: add edit button if id == user.id */}
+                        <p>{user?.name}</p>
+                        <p>{user?.description}</p>
+                    </div>
+                    <Link to={`/message/${user?.id}`}>
+                        <button>Message</button>
+                    </Link>
                 </div>
-
         }
         </>
     )
