@@ -17,20 +17,19 @@ const res = {
 }
 const next = jest.fn()
 
-test("calls next if jwt is valid", () => {
+test("attaches to req and calls next if jwt is valid", () => {
     const data = { 
         iat: 6,
         exp: 7
     }
     const jwtVerify = jest.spyOn(jwt, "verify")
     jwtVerify.mockReturnValue(data)
-    const dateNow = jest.spyOn(Date, "now")
     
     isValidJwt(req, res, next)
 
-    expect(dateNow).toHaveBeenCalled()
     expect(res.json.mock.calls).toHaveLength(0)
     expect(next.mock.calls).toHaveLength(1)
+    expect(req.decodedToken).toEqual(data)
     jwtVerify.mockRestore()
 })
 

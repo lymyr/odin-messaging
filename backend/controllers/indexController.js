@@ -1,6 +1,7 @@
 import { prisma } from "../lib/prisma.js"
 import bcrypt from "bcryptjs"
 import jwt from "jsonwebtoken"
+import tokenLife from "../helpers/tokenLife.js"
 process.loadEnvFile()
 
 export const createAccount = async (req, res) => {
@@ -22,7 +23,7 @@ export const login = async (req, res) => {
     const token = jwt.sign({
         ...user,
         iat: Math.floor(Date.now()/1000),
-        exp: Math.floor(Date.now()/1000) + (60*30)
+        exp: tokenLife
     }, process.env.JWT_SECRET)
     
     res.json({data: {token}})
