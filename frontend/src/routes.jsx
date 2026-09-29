@@ -1,7 +1,7 @@
 import App from "./App";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Messages from "./components/Messages"
+import Chats from "./components/Chats"
 import UserList from "./components/UserList"
 import Profile from "./components/Profile";
 
@@ -19,8 +19,10 @@ export default [
         element: <App />,
         children: [
             {
+                // todo: decide whether to keep as separate page or
+                // render as aside
                 index: true,
-                element: <Messages />
+                element: <Chats />
             },
             {
                 path: "users",

@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react"
 import CredContext from "../contexts/CredContext.js"
 
-export default function Messages() {
+export default function Chats() {
     const [token, setToken] = useContext(CredContext)
 
     const [chats, setChats] = useState()
