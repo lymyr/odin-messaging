@@ -65,14 +65,16 @@ export default function Chats() {
                                 <Link key={c.id} to={`/chats/${c.id}`}>
                                     <div>
                                         {
-                                            c.participants.filter(participant => participant.user.id != user.id).map(participant => {
-                                                return (
-                                                    <div key={participant.user.id}>
-                                                        <p>{participant.user.name}</p>
-                                                        <p>{participant.user.id}</p>
-                                                    </div>     
-                                                )
-                                            })
+                                            c.participants
+                                                .filter(participant => participant.user.id != user.id || c.participants.length == 1)
+                                                .map(participant => {
+                                                    return (
+                                                        <div key={participant.user.id}>
+                                                            <p>{participant.user.name}</p>
+                                                            <p>{participant.user.id}</p>
+                                                        </div>     
+                                                    )
+                                                })
                                         }
                                         <p>{c.messages[0].text}</p>
                                     </div>

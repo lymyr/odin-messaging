@@ -72,9 +72,10 @@ export const sendMessage = async (req, res) => {
 }
 
 export const sendMessageByUserId = async (req, res) => {
-    let chat = await getChat([req.decodedToken.id, req.params.userId])
+    const participants = req.decodedToken.id == req.params.userId ? [req.decodedToken.id] : [req.decodedToken.id, req.params.userId]
+    let chat = await getChat(participants)
     if (!chat)
-        chat = await createChat([req.decodedToken.id, req.params.userId])
+        chat = await createChat(participants)
     const message = await prisma.message.create({
         data: {
             text: req.body.message,
@@ -92,13 +93,14 @@ export const sendMessageByUserId = async (req, res) => {
 }
 
 export const retrieveMessagesByUserId = async (req, res) => {
+    const participants = req.decodedToken.id == req.params.userId ? [req.decodedToken.id] : [req.decodedToken.id, req.params.userId]
    const messages = await prisma.message.findMany({
         where: {
             chat: {
                 participants: {
                     every: {
                         userId: {
-                            in: [req.decodedToken.id, req.params.userId]
+                            in: participants
                         }
                     }
                 }
