@@ -12,14 +12,20 @@ function App() {
   const [searchParams, setSearchParams] = useSearchParams(location.search)
 
   useEffect(() => {
+    let timeoutId;
     if (!token)
       nav("/login")
     else {
+      const decoded = jwtDecode(token)
+      timeoutId = setTimeout(() => {
+        localStorage.removeItem("token")
+        setToken()
+      }, (decoded.exp*1000) - Date.now())
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setUser(jwtDecode(token))
+      setUser(decoded)
       localStorage.setItem("token", token)
     }
-    
+    return () => clearTimeout(timeoutId)
   }, [token, nav])
 
   return (
