@@ -147,21 +147,34 @@ describe("/chats", () => {
                 .post(`/v1/chats/user/${receiver.id}`)
                 .set("Authorization", "bearer token")
                 .send({ message })
-
+            
             expect(res.statusCode).toBe(201)
             expect(res.body.data.token).toBe("token")
             expect(res.body.data.message.text).toBe(message)
         })
 
         test("retrieve messages", async () => {
+            await request(app)
+                .post(`/v1/chats/user/${receiver.id}`)
+                .set("Authorization", "bearer token")
+                .send({ message: "what is good" })
+            
+            await request(app)
+                .post(`/v1/chats/user/${receiver.id}`)
+                .set("Authorization", "bearer token")
+                .send({ message: "please consider the previous test for the retrieval of messages" })
+
             const res = await request(app)
                 .get(`/v1/chats/user/${receiver.id}`)
                 .set("Authorization", "bearer token")
 
+            const chats = await prisma.chat.findMany()
             expect(res.body.data).toEqual({
                 messages: expect.any(Array),
                 token: "token"
             })
+            expect(res.body.data.messages).toHaveLength(3)
+            expect(chats).toHaveLength(1)
         })
 
         describe("jwt error", () => {

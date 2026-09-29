@@ -97,10 +97,9 @@ export const retrieveMessagesByUserId = async (req, res) => {
             chat: {
                 participants: {
                     every: {
-                        AND: [
-                            {userId: req.decodedToken.id},
-                            {userId: req.params.userId},
-                        ]
+                        userId: {
+                            in: [req.decodedToken.id, req.params.userId]
+                        }
                     }
                 }
             }

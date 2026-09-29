@@ -5,17 +5,18 @@ export async function getChat(participants) {
         where: {
             participants: {
                 every: {
-                    AND: participants.map(participant => {
-                        return {userId: participant}
-                    })
+                    userId: {
+                        in: participants
+                    }
                 }
             }
         }
     })
-    
     return chat
 }
 
+// can cause chat duplication if handled incorrectly
+// todo..?: find a way to fix that from ever happening
 export async function createChat(participants) {
     const chat = await prisma.chat.create({
         data: {
