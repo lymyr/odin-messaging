@@ -75,7 +75,7 @@ export default function Register() {
                     <p>{errors.generic}</p>
                 }
             </form>
-            <p>Already have an account? Sign in <Link to="/">here</Link></p>
+            <p>Already have an account? Sign in <Link to="/login">here</Link></p>
         </div>
     )
 }
