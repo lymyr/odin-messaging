@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react"
 import { useParams } from "react-router"
 import CredContext from "../contexts/CredContext"
 import InputSend from "./InputSend"
+import PageContainer from "./PageContainer"
 
 export default function Message() {
     const params = useParams()
@@ -46,34 +47,36 @@ export default function Message() {
     }, [params.userId])
 
     return (
-        <div>
-            <h1>{params.userId}</h1>
+        <PageContainer>
             <div>
-                {
-                    loading ? 
-                        <p>Loading...</p>
-                    : error ?
-                        <p>{error}</p>
-                    : messages.length == 0 ?
-                        <p>no messages yet it seems</p>
-                    : 
-                        messages.map(message => {
-                            return (
-                                <div key={message.id} className={message.userId != user.id ? "otherMsg" : undefined}>
-                                    { message.userId != user.id && 
-                                        <p>{message.userId}</p>
-                                    }
-                                    <p>{message.text}</p>
-                                    <p>{message.dateAdded}</p>
-                                </div>
-                            )
-                        })
-                        
-                }
+                <h1>{params.userId}</h1>
+                <div>
+                    {
+                        loading ?
+                            <p>Loading...</p>
+                        : error ?
+                            <p>{error}</p>
+                        : messages.length == 0 ?
+                            <p>no messages yet it seems</p>
+                        :
+                            messages.map(message => {
+                                return (
+                                    <div key={message.id} className={message.userId != user.id ? "otherMsg" : undefined}>
+                                        { message.userId != user.id &&
+                                            <p>{message.userId}</p>
+                                        }
+                                        <p>{message.text}</p>
+                                        <p>{message.dateAdded}</p>
+                                    </div>
+                                )
+                            })
+            
+                    }
+                </div>
+                <div>
+                    <InputSend messages={messages} setMessages={setMessages}/>
+                </div>
             </div>
-            <div>
-                <InputSend messages={messages} setMessages={setMessages}/>
-            </div>
-        </div>
+        </PageContainer>
     )
 }
