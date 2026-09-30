@@ -21,38 +21,40 @@ export default function Header() {
     }
 
     return (
-        <header className={styles.header}>
-            <div>
-                <h1>Messaging</h1>
+        <header>
+            <div className={styles.header}>
                 <div>
-                    <form onSubmit={(e) => {
-                        e.preventDefault()
-                        navToUserList()
-                    }}>
-                        <input
-                            className={styles.search}
-                            type="text"
-                            placeholder="Search users"
-                            value={query}
-                            onChange={(e) => { setQuery(e.target.value) }}
-                        />
-                        <button className={styles.button}>Search</button>
-                    </form>
+                    <h1>Messaging</h1>
+                    <div>
+                        <form onSubmit={(e) => {
+                            e.preventDefault()
+                            navToUserList()
+                        }}>
+                            <input
+                                className={styles.search}
+                                type="text"
+                                placeholder="Search users"
+                                value={query}
+                                onChange={(e) => { setQuery(e.target.value) }}
+                            />
+                            <button className={styles.button}>Search</button>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <div>
-                <nav>
-                    <Link to={"/"}>
-                        <button>Home</button>
-                    </Link>
-                    <Link to={"/users"}>
-                        <button>All users</button>
-                    </Link>
-                    <Link to={`/users/${user?.id}`}>
-                        <button>Profile</button>
-                    </Link> 
-                </nav>
-                <button className={styles.button} onClick={handleLogout}>Log out</button>
+                <div>
+                    <nav>
+                        <Link to={"/"}>
+                            <button>Home</button>
+                        </Link>
+                        <Link to={"/users"}>
+                            <button>All users</button>
+                        </Link>
+                        <Link to={`/users/${user?.id}`}>
+                            <button>Profile</button>
+                        </Link>
+                    </nav>
+                    <button className={styles.button} onClick={handleLogout}>Log out</button>
+                </div>
             </div>
         </header>
     )

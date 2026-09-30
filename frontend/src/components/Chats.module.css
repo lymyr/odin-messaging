@@ -1,0 +1,51 @@
+.loading {
+    composes: loading from "../GenericStyles.module.css";
+}
+
+.infoContainer {
+    composes: infoContainer from "../GenericStyles.module.css";
+}
+
+.pageText {
+    composes: pageText from "../GenericStyles.module.css";
+}
+
+.chatsContainer {
+    display: grid;
+    grid-auto-rows: 1fr;
+    max-width: var(--max-width);
+    height: fit-content;
+}
+
+.chatsContainer a > div {
+    padding: 12px var(--inline-space);
+}
+
+.chatsContainer a > div > * {
+    max-width: calc(100vw - (var(--inline-space)*2));
+}
+
+.chatsContainer a > div:hover {
+    background-color: rgb(233, 239, 245);
+}
+
+.chatsContainer a > div > p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.chatsContainer a {
+    color: black;
+    text-decoration: none;
+}
+.user p:nth-child(1) {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.user p:nth-child(2) {
+    opacity: 0.5;
+    font-size: 0.8rem;
+    margin-top: -4px;
+}

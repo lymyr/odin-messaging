@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react"
 import CredContext from "../contexts/CredContext.js"
 import { Link } from "react-router"
+import styles from "./Chats.module.css"
+import PageContainer from "./PageContainer.jsx"
 
 export default function Chats() {
     const [token, setToken, user] = useContext(CredContext)
@@ -52,37 +54,46 @@ export default function Chats() {
         <>
         {
             loading ?
-                <h1>Loading...</h1>
-            : error ?
-                <h1>{error}</h1>
-            : chats.length == 0 ?
-                <h1>Chat is empty</h1>
-            : 
-                <div>
-                    {
-                        chats.map(c => {
-                            return (
-                                <Link key={c.id} to={`/chats/${c.id}`}>
-                                    <div>
-                                        {
-                                            c.participants
-                                                .filter(participant => participant.user.id != user.id || c.participants.length == 1)
-                                                .map(participant => {
-                                                    return (
-                                                        <div key={participant.user.id}>
-                                                            <p>{participant.user.name}</p>
-                                                            <p>{participant.user.id}</p>
-                                                        </div>     
-                                                    )
-                                                })
-                                        }
-                                        <p>{c.messages[0].text}</p>
-                                    </div>
-                                </Link>
-                            )
-                        })
-                    }
+                <div className={styles.infoContainer}>
+                    <div className={styles.loading}></div>
+                    <p>Fetching chats...</p>
                 </div>
+            : error ?
+                <div className={styles.infoContainer}>
+                    <h1 className={styles.pageText}>{error}</h1>
+                </div>
+            : chats.length == 0 ?
+                <div className={styles.infoContainer}>
+                    <h1 className={styles.pageText}>Chat is empty</h1>
+                </div>
+            : 
+                <PageContainer>
+                    <div className={styles.chatsContainer}>
+                        {
+                            chats.map(c => {
+                                return (
+                                    <Link key={c.id} to={`/chats/${c.id}`}>
+                                        <div>
+                                            {
+                                                c.participants
+                                                    .filter(participant => participant.user.id != user.id || c.participants.length == 1)
+                                                    .map(participant => {
+                                                        return (
+                                                            <div className={styles.user} key={participant.user.id}>
+                                                                <p>{participant.user.name}</p>
+                                                                <p>{participant.user.id}</p>
+                                                            </div>     
+                                                        )
+                                                    })
+                                            }
+                                            <p className={styles.text}>{c.messages[0].text}</p>
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        }
+                    </div>
+                </PageContainer>
         }
         
         </>

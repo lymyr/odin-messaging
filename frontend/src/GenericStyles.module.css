@@ -49,3 +49,34 @@
 .input:focus {
     border-color: transparent;
 }
+
+.infoContainer {
+    margin-top: 20vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding-inline: var(--inline-space);
+}
+
+.pageText {
+    color: rgb(100, 100, 100);
+}
+
+.loading {
+    --border-size: 8px;
+    --size: 16px;
+    border-radius: 99%;
+    padding: var(--size);
+    width: fit-content;
+    border: var(--border-size) solid transparent;
+    border-bottom: var(--border-size) solid var(--main-color);
+    animation: spin infinite 900ms linear;
+
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
