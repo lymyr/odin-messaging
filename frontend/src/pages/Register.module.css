@@ -1,0 +1,32 @@
+/* put generic styles on top since it causes some bugs for
+Login.module.css for some reason */
+.error {
+    composes: errorText from "../GenericStyles.module.css";
+    max-width: 205px;
+}
+
+.button {
+    composes: button from "../GenericStyles.module.css";
+    --color: rgb(24, 125, 98);
+    --bg-color: rgb(198, 227, 219);
+    font-weight: 600;
+    margin-left: auto;
+    margin-top: 12px;
+    margin-bottom: 4px;
+}
+
+.registerContainer {
+    composes: loginContainer from "./Login.module.css";
+}
+
+.form {
+    composes: form from "./Login.module.css";
+}
+
+.inputLabel {
+    composes: inputLabel from "./Login.module.css";
+}
+
+.button:hover {
+    --bg-color: white;
+}

@@ -1,0 +1,51 @@
+.errorText {
+    color: rgb(191, 27, 27);
+}
+
+.button {
+    width: fit-content;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    padding: 4px 12px;
+    will-change: background-color color;
+    transition: 
+        color 150ms ease-in-out,
+        border-color 150ms ease-in-out,
+        background-color 150ms ease-in-out, 
+        box-shadow 150ms ease-in-out;
+
+    --color: black;
+    --bg-color: white;
+    color: var(--color);
+    background-color: var(--bg-color);
+    border: 1px solid var(--bg-color);
+}
+
+.button:not(:disabled):hover {
+    background-color: var(--color);
+    border-color: var(--color);
+    color: var(--bg-color);
+    box-shadow: 1px 1px 4px gray;
+}
+
+.button:disabled {
+    background-color: rgb(220, 220, 220);
+    color: rgb(123, 123, 123);
+    border-color: rgb(220, 220, 220);
+    cursor: progress;
+}
+
+.label {
+    text-transform: capitalize;
+}
+
+.input {
+    border-radius: 4px;
+    border: 1px solid gray;
+    padding: 4px 8px;
+}
+
+.input:focus {
+    border-color: transparent;
+}

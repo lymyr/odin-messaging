@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputLabel from "../components/InputLabel";
 import { Link, useNavigate } from "react-router";
+import styles from "./Register.module.css"
 
 export default function Register() {
     const [formData, setFormData] = useState({
@@ -44,36 +45,36 @@ export default function Register() {
     }
 
     return (
-        <div>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <div>
+        <div className={styles.registerContainer}>
+            <form  className={styles.form} onSubmit={(e) => e.preventDefault()}>
+                <div className={styles.inputLabel}>
                     <InputLabel label={"username"} formData={formData} setFormData={setFormData}/>
                     {errors && errors.username &&
-                        <p>{errors.username.msg}</p>
+                        <p className={styles.error}>{errors.username.msg}</p>
                     }
                 </div>
-                <div>
+                <div className={styles.inputLabel}>
                     <InputLabel label={"display name"} formDataProp={"displayName"} formData={formData} setFormData={setFormData}/>
                     {errors && errors.displayName &&
-                        <p>{errors.displayName.msg}</p>
+                        <p className={styles.error}>{errors.displayName.msg}</p>
                     }
                 </div>
-                <div>
+                <div className={styles.inputLabel}>
                     <InputLabel label={"password"} type={"password"} formData={formData} setFormData={setFormData}/>
                     {errors && errors.password &&
-                        <p>{errors.password.msg}</p>
+                        <p className={styles.error}>{errors.password.msg}</p>
                     }
                 </div>
-                <div>
+                <div className={styles.inputLabel}>
                     <InputLabel label={"confirm password"} formDataProp={"confirmPassword"} type={"password"} formData={formData} setFormData={setFormData}/>
                     {errors && errors.confirmPassword &&
-                        <p>{errors.confirmPassword.msg}</p>
+                        <p className={styles.error}>{errors.confirmPassword.msg}</p>
                     }
                 </div>
-                <button onClick={handleRegister} disabled={loading}>Register</button>
                 {errors && errors.generic &&
-                    <p>{errors.generic}</p>
+                    <p className={styles.error}>{errors.generic}</p>
                 }
+                <button className={styles.button} onClick={handleRegister} disabled={loading}>Register</button>
             </form>
             <p>Already have an account? Sign in <Link to="/login">here</Link></p>
         </div>

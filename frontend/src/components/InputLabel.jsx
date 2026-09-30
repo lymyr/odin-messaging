@@ -1,3 +1,5 @@
+import styles from "./InputLabel.module.css"
+
 export default function InputLabel({
     label,
     setFormData,
@@ -7,8 +9,9 @@ export default function InputLabel({
 }) {
     return (
         <>
-            <label htmlFor={label}>{label}</label>
+            <label className={styles.label} htmlFor={label}>{label}</label>
             <input 
+                className={styles.input}
                 id={label}
                 value={formData[formDataProp ? formDataProp : label]}
                 onChange={(e) => {

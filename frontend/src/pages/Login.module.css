@@ -1,0 +1,63 @@
+.error {
+    composes: errorText from "../GenericStyles.module.css";
+    max-width: 205px;
+}
+
+.loginContainer {
+    margin: auto;
+    margin-top: 20vh;
+    width: fit-content;
+    background-color: white;
+    padding: 48px 32px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 4px rgb(176, 176, 176);
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputLabel {
+    display: flex;
+    gap: 2px;
+    flex-direction: column;
+}
+
+/* need to add !important since somehow genericstyles overwrites variables :/ */
+.button {
+    composes: button from "../GenericStyles.module.css";
+    --bg-color: rgb(205, 211, 233) !important;
+    --color: rgb(38, 38, 115) !important;
+    font-weight: 600;
+    margin-left: auto;
+    margin-bottom: 8px;
+}
+
+.header {
+    font-family: ropa-sans;
+    position: relative;
+    margin: auto;
+    width: fit-content;
+    margin-bottom: 32px;
+}
+
+.header p {
+    position: absolute;
+    left:-12px;
+    top: -8px;
+    transform: rotate(-16deg);
+    background-color: var(--main-color);
+    color: white;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+}
+
+.header {
+    background-color: var(--main-color);
+    color: white;
+    padding: 2px 12px;
+    border-radius: 4px;
+}

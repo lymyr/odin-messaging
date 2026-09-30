@@ -2,6 +2,7 @@ import { useContext, useState } from "react"
 import CredContext from "../contexts/CredContext"
 import { Link, useNavigate } from "react-router"
 import SearchParamContext from "../contexts/SearchParamContext"
+import styles from "./Header.module.css"
 
 export default function Header() {
     const [,setToken, user] = useContext(CredContext)
@@ -20,15 +21,24 @@ export default function Header() {
     }
 
     return (
-        <header>
+        <header className={styles.header}>
             <div>
-                <input 
-                    type="text" 
-                    placeholder="Search users" 
-                    value={query} 
-                    onChange={(e) => { setQuery(e.target.value) }}
-                />
-                <button onClick={navToUserList}>Search</button>
+                <h1>Messaging</h1>
+                <div>
+                    <form onSubmit={(e) => {
+                        e.preventDefault()
+                        navToUserList()
+                    }}>
+                        <input
+                            className={styles.search}
+                            type="text"
+                            placeholder="Search users"
+                            value={query}
+                            onChange={(e) => { setQuery(e.target.value) }}
+                        />
+                        <button className={styles.button}>Search</button>
+                    </form>
+                </div>
             </div>
             <div>
                 <nav>
@@ -39,10 +49,10 @@ export default function Header() {
                         <button>All users</button>
                     </Link>
                     <Link to={`/users/${user?.id}`}>
-                        <button>{user?.id}</button>
+                        <button>Profile</button>
                     </Link> 
                 </nav>
-                <button onClick={handleLogout}>Log out</button>
+                <button className={styles.button} onClick={handleLogout}>Log out</button>
             </div>
         </header>
     )

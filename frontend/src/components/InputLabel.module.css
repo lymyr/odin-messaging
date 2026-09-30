@@ -1,0 +1,7 @@
+.label {
+    composes: label from "../GenericStyles.module.css"
+}
+
+.input {
+    composes: input from "../GenericStyles.module.css"
+}

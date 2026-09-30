@@ -1,6 +1,7 @@
 import { useState } from "react";
 import InputLabel from "../components/InputLabel";
 import { Link, useNavigate } from "react-router";
+import styles from "./Login.module.css"
 
 export default function Login() {
     const [formData, setFormData] = useState({
@@ -44,24 +45,28 @@ export default function Login() {
     }
 
     return (
-        <div>
-            <form onSubmit={(e) => e.preventDefault()}>
-                <div>
+        <div className={styles.loginContainer}>
+            <div className={styles.header}>
+                <p>Odin</p>
+                <h1>Messaging</h1>
+            </div>
+            <form className={styles.form} onSubmit={(e) => e.preventDefault()}>
+                <div className={styles.inputLabel}>
                     <InputLabel label={"username"} formData={formData} setFormData={setFormData}/>
                     { errors && errors.username &&
-                        <p>{errors.username.msg}</p>
+                        <p className={styles.error}>{errors.username.msg}</p>
                     }
                 </div>
-                <div>
+                <div className={styles.inputLabel}>
                     <InputLabel label={"password"} type={"password"} formData={formData} setFormData={setFormData}/>
                     { errors && errors.password &&
-                        <p>{errors.password.msg}</p>
+                        <p className={styles.error}>{errors.password.msg}</p>
                     }
                 </div>
                 { errors && errors.generic &&
-                    <p>{errors.generic}</p>
+                    <p className={styles.error}>{errors.generic}</p>
                 }
-                <button onClick={handleLogin} disabled={loading}>Log in</button>
+                <button className={styles.button} onClick={handleLogin} disabled={loading}>Log in</button>
             </form>
             <p>No account? Register <Link to="/register">here</Link></p>
         </div>

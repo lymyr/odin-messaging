@@ -52,3 +52,14 @@ h1, h2, h3, h4, h5, h6 {
 #root, #__next {
   isolation: isolate;
 }
+
+@font-face {
+  font-family: ropa-sans;
+  src: url(./assets/ropaSans/RopaSans-Regular.ttf);
+}
+
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: rgb(230, 232, 235);
+    --main-color: rgb(37, 89, 157);
+}
