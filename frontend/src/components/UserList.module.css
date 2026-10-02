@@ -1,0 +1,29 @@
+.loading {
+    composes: loading from "../GenericStyles.module.css";
+}
+
+.infoContainer {
+    composes: infoContainer from "../GenericStyles.module.css";
+}
+
+.pageText {
+    composes: pageText from "../GenericStyles.module.css";
+}
+
+a:has(.container) {
+    text-decoration: none;
+    color: black;
+}
+
+.container {
+    padding: var(--inline-space)
+}
+
+.container:hover {
+    background-color: var(--hover-color);
+}
+
+.container p:first-child {
+    font-weight: 600;
+    font-size: 1.2rem;
+}

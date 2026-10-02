@@ -1,0 +1,11 @@
+.loading {
+    composes: loading from "../GenericStyles.module.css";
+}
+
+.infoContainer {
+    composes: infoContainer from "../GenericStyles.module.css";
+}
+
+.pageText {
+    composes: pageText from "../GenericStyles.module.css";
+}

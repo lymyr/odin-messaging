@@ -26,7 +26,7 @@
 }
 
 .chatsContainer a > div:hover {
-    background-color: rgb(233, 239, 245);
+    background-color: var(--hover-color)
 }
 
 .chatsContainer a > div > p {

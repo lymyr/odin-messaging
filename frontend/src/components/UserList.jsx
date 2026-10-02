@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react"
 import CredContext from "../contexts/CredContext";
 import SearchParamContext from "../contexts/SearchParamContext";
 import { Link } from "react-router";
+import styles from "./UserList.module.css"
+import PageContainer from "./PageContainer";
 
 export default function UserList() {
     const [searchParams] = useContext(SearchParamContext)
@@ -46,22 +48,33 @@ export default function UserList() {
         <>
             {
                 loading ?
-                    <h1>Loading...</h1> 
+                    <div className={styles.infoContainer}>
+                        <div className={styles.loading}></div>
+                        <p>Fetching users...</p>
+                    </div> 
                 : error ?
-                    <h1>{error}</h1>
+                    <div className={styles.infoContainer}>
+                        <h1 className={styles.pageText}>{error}</h1>
+                    </div>
                 : users.length == 0 ?
-                    <h1>No user found</h1>
+                    <div className={styles.infoContainer}>
+                        <h1>No user found</h1>
+                    </div>
                 : 
-                    users.map(u => {
-                        return (
-                            <Link to={`/users/${u.id}`} key={u.id}>
-                                <div>
-                                    <p>{u.id}</p>
-                                    <p>{u.name}</p>
-                                </div>
-                            </Link>
-                        )
-                    })
+                    <PageContainer>
+                        {
+                            users.map(u => {
+                                return (
+                                    <Link to={`/users/${u.id}`} key={u.id}>
+                                        <div className={styles.container}>
+                                            <p>{u.id}</p>
+                                            <p>{u.name}</p>
+                                        </div>
+                                    </Link>
+                                )
+                            })
+                        }
+                    </PageContainer>   
             }
         </>
     )

@@ -2,6 +2,8 @@ import { useContext, useEffect, useState } from "react"
 import { Link, useParams } from "react-router"
 import CredContext from "../contexts/CredContext"
 import ProfileEdit from "./ProfileEdit"
+import styles from "./Profile.module.css"
+import PageContainer from "./PageContainer"
 
 export default function Profile() {
     const [user, setUser] = useState()
@@ -47,33 +49,40 @@ export default function Profile() {
     return (
         <>
         { 
-            loading ? 
-                <h1>loading</h1>
-            : error ? 
-                <h1>{error}</h1>
-            : 
-                <div>
-                    <div>
-                        <h1>{user?.id}</h1>
-                        {
-                            !isEdit ?
-                                <>
-                                    <p>{user?.name}</p>
-                                    <p>{user?.description}</p>
-                                </>
-                            :
-                                <ProfileEdit user={user} setIsEdit={setIsEdit} setUser={setUser}/>
-                        }
-                        
-                        {
-                            user.id == loggedUser.id && !isEdit &&
-                                <button onClick={() => setIsEdit(true)}>Edit</button>
-                        }
-                    </div>
-                    <Link to={`/message/${user?.id}`}>
-                        <button>Message</button>
-                    </Link>
+            loading ?
+                <div className={styles.infoContainer}>
+                    <div className={styles.loading}></div>
+                    <p>Loading profile...</p>
+                </div> 
+            : error ?
+                <div className={styles.infoContainer}>
+                    <h1 className={styles.pageText}>{error}</h1>
                 </div>
+            : 
+                <PageContainer>
+                    <div>
+                        <div>
+                            <h1>{user?.id}</h1>
+                            {
+                                !isEdit ?
+                                    <>
+                                        <p>{user?.name}</p>
+                                        <p>{user?.description}</p>
+                                    </>
+                                :
+                                    <ProfileEdit user={user} setIsEdit={setIsEdit} setUser={setUser}/>
+                            }
+                            
+                            {
+                                user.id == loggedUser.id && !isEdit &&
+                                    <button onClick={() => setIsEdit(true)}>Edit</button>
+                            }
+                        </div>
+                        <Link to={`/message/${user?.id}`}>
+                            <button>Message</button>
+                        </Link>
+                    </div>
+                </PageContainer>
         }
         </>
     )

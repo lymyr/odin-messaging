@@ -64,6 +64,7 @@ h1, h2, h3, h4, h5, h6 {
     --main-color: rgb(37, 89, 157);
     --inline-space: 16px;
     --max-width: 1080px;
+    --hover-color: rgb(233, 239, 245);
 }
 
 #root {
