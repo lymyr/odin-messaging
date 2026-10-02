@@ -72,11 +72,14 @@ export default function Message() {
                                         className={message.userId != user.id ? `${styles.otherMsg} ${styles.message}` : styles.message}
                                         ref={messages[i] == message ? lastMsgRef : undefined}
                                     >
-                                        { message.userId != user.id &&
-                                            <p>{message.userId}</p>
-                                        }
+                                        <div>
+                                            { message.userId != user.id &&
+                                                <p className={styles.otherMsgName}>{message.userId}</p>
+                                            }
+                                            <p>{message.dateAdded}</p>
+                                        </div>
                                         <p>{message.text}</p>
-                                        <p>{message.dateAdded}</p>
+                                        
                                     </div>
                                 )
                             })

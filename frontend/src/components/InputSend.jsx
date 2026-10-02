@@ -3,7 +3,7 @@ import { useParams } from "react-router"
 import CredContext from "../contexts/CredContext"
 import styles from "./InputSend.module.css"
 
-export default function InputSend({messages, setMessages, msgContainerRef}) {
+export default function InputSend({messages, setMessages}) {
     const [token, setToken] = useContext(CredContext)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()

@@ -18,7 +18,7 @@
 }
 
 .chatsContainer a > div {
-    padding: 12px var(--inline-space);
+    padding: 20px var(--inline-space);
 }
 
 .chatsContainer a > div > * {
@@ -33,6 +33,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    margin-top: 4px;
 }
 
 .chatsContainer a {
