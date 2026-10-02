@@ -1,8 +1,9 @@
 import { useContext, useState } from "react"
 import { useParams } from "react-router"
 import CredContext from "../contexts/CredContext"
+import styles from "./InputSend.module.css"
 
-export default function InputSend({messages, setMessages}) {
+export default function InputSend({messages, setMessages, msgContainerRef}) {
     const [token, setToken] = useContext(CredContext)
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState()
@@ -55,17 +56,26 @@ export default function InputSend({messages, setMessages}) {
     return (
         <>
             {
-                // todo: update as popup
-                error && <p>{error}</p>
+                error && 
+                    <div className={styles.errorContainer}>
+                        <p className={styles.error}>{error}</p>
+                        <button onClick={() => setError()}>X</button>
+                    </div>
             }
-            <input 
-                value={text}
-                onChange={(e) => {setText(e.target.value)}}
-            />
-            <button
-                onClick={handleSend}
-                disabled={loading}
-            >Send</button>
+            <form onSubmit={(e) => {
+                e.preventDefault()
+                handleSend()
+            }}>
+                <input
+                    value={text}
+                    onChange={(e) => {setText(e.target.value)}}
+                    className={styles.input}
+                />
+                <button
+                    disabled={loading}
+                    className={styles.button}
+                >Send</button>
+            </form>
         </>
     )
 }

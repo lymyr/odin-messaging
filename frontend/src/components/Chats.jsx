@@ -72,7 +72,7 @@ export default function Chats() {
                         {
                             chats.map(c => {
                                 return (
-                                    <Link key={c.id} to={`/chats/${c.id}`}>
+                                    <Link key={c.id} to={`/chats/${c.id}/${c.participants.filter(participant => participant.user.id != user.id || c.participants.length == 1)[0].user.id}`}>
                                         <div>
                                             {
                                                 c.participants

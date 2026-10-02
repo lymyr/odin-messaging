@@ -1,12 +1,11 @@
 .error {
     composes: errorText from "../GenericStyles.module.css";
-    max-width: 205px;
 }
 
 .loginContainer {
     margin: auto;
     margin-top: 20vh;
-    width: fit-content;
+    max-width: 300px;
     background-color: white;
     padding: 48px 32px;
     border-radius: 8px;

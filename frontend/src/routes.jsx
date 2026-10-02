@@ -38,7 +38,7 @@ export default [
                 element: <Message />
             },
             {
-                path: "chats/:chatId",
+                path: "chats/:chatId/:userId",
                 element: <Message />
             }
         ]

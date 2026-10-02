@@ -2,13 +2,12 @@
 Login.module.css for some reason */
 .error {
     composes: errorText from "../GenericStyles.module.css";
-    max-width: 205px;
 }
 
 .button {
     composes: button from "../GenericStyles.module.css";
-    --color: rgb(24, 125, 98);
-    --bg-color: rgb(198, 227, 219);
+    --color: rgb(24, 125, 98) !important;
+    --bg-color: rgb(198, 227, 219) !important;
     font-weight: 600;
     margin-left: auto;
     margin-top: 12px;

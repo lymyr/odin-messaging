@@ -1,8 +1,9 @@
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { useParams } from "react-router"
 import CredContext from "../contexts/CredContext"
 import InputSend from "./InputSend"
 import PageContainer from "./PageContainer"
+import styles from "./Message.module.css"
 
 export default function Message() {
     const params = useParams()
@@ -10,6 +11,7 @@ export default function Message() {
     const [messages, setMessages] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState()
+    const lastMsgRef = useRef()
 
     useEffect(() => {
         const controller = new AbortController();
@@ -46,22 +48,30 @@ export default function Message() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [params.userId])
 
+    useEffect(() => {
+        lastMsgRef?.current.scrollIntoView({ behavior: "smooth" })
+    }, [messages])
+
     return (
         <PageContainer>
-            <div>
+            <div className={styles.container}>
                 <h1>{params.userId}</h1>
-                <div>
+                <div className={styles.messageContainer} ref={lastMsgRef}>
                     {
                         loading ?
-                            <p>Loading...</p>
+                            <div className={styles.loading}></div>
                         : error ?
-                            <p>{error}</p>
+                            <p className={styles.error}>{error}</p>
                         : messages.length == 0 ?
                             <p>no messages yet it seems</p>
                         :
-                            messages.map(message => {
+                            messages.map((message, i) => {
                                 return (
-                                    <div key={message.id} className={message.userId != user.id ? "otherMsg" : undefined}>
+                                    <div 
+                                        key={message.id} 
+                                        className={message.userId != user.id ? `${styles.otherMsg} ${styles.message}` : styles.message}
+                                        ref={messages[i] == message ? lastMsgRef : undefined}
+                                    >
                                         { message.userId != user.id &&
                                             <p>{message.userId}</p>
                                         }
@@ -73,8 +83,8 @@ export default function Message() {
             
                     }
                 </div>
-                <div>
-                    <InputSend messages={messages} setMessages={setMessages}/>
+                <div className={styles.inputContainer}>
+                    <InputSend messages={messages} setMessages={setMessages} />
                 </div>
             </div>
         </PageContainer>
