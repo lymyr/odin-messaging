@@ -1,5 +1,6 @@
 import { useContext, useState } from "react"
 import CredContext from "../contexts/CredContext";
+import styles from "./ProfileEdit.module.css"
 
 export default function ProfileEdit({user, setIsEdit, setUser}) {
     const [token, setToken] = useContext(CredContext)
@@ -47,17 +48,21 @@ export default function ProfileEdit({user, setIsEdit, setUser}) {
 
     return (
         <>
-            <input value={formData?.displayName} onChange={(e) => {
-                setFormData({...formData, displayName: e.target.value})
-            }}/>
-            {error && error.displayName && <p>{error.displayName.msg}</p>}
-            <input value={formData?.description} onChange={(e) => {
-                setFormData({...formData, description: e.target.value})
-            }}/>
-            {error && error.description && <p>{error.description.msg}</p>}
-            {error && error.generic && <p>{error.generic}</p>}
-            <button onClick={() => setIsEdit(false)} disabled={loading}>Discard</button>
-            <button onClick={handleSubmit} disabled={loading}>Submit</button>
+            <div className={styles.container}>
+                <div>
+                    <input value={formData?.displayName} onChange={(e) => {
+                        setFormData({...formData, displayName: e.target.value})
+                    }}/>
+                    {error && error.displayName && <p>{error.displayName.msg}</p>}
+                    <input value={formData?.description} onChange={(e) => {
+                        setFormData({...formData, description: e.target.value})
+                    }}/>
+                    {error && error.description && <p>{error.description.msg}</p>}
+                    {error && error.generic && <p>{error.generic}</p>}
+                </div>
+                <button className={styles.button} onClick={() => setIsEdit(false)} disabled={loading}>Discard</button>
+                <button className={styles.button} onClick={handleSubmit} disabled={loading}>Submit</button>
+            </div>
         </>
     )
 }

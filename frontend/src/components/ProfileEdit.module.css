@@ -1,0 +1,27 @@
+.button {
+    composes: button from "../GenericStyles.module.css";
+    height: fit-content
+}
+
+.button:first-of-type {
+    margin-right: 12px;
+}
+
+.button:first-of-type:hover {
+    --bg-color: white;
+    --color: rgb(131, 25, 25);
+}
+
+.button:last-of-type:hover {
+    --bg-color: white !important;
+    --color: rgb(42, 117, 42) !important;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+}
+
+.container > div {
+    flex-grow: 1;
+}

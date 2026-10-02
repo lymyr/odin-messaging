@@ -60,26 +60,29 @@ export default function Profile() {
                 </div>
             : 
                 <PageContainer>
-                    <div>
-                        <div>
+                    <div className={styles.container}>
+                        <div className={styles.details}>
                             <h1>{user?.id}</h1>
-                            {
-                                !isEdit ?
-                                    <>
-                                        <p>{user?.name}</p>
-                                        <p>{user?.description}</p>
-                                    </>
-                                :
-                                    <ProfileEdit user={user} setIsEdit={setIsEdit} setUser={setUser}/>
-                            }
-                            
-                            {
-                                user.id == loggedUser.id && !isEdit &&
-                                    <button onClick={() => setIsEdit(true)}>Edit</button>
-                            }
+                            <div>
+                                <div className={styles.nameDesc}>
+                                    {
+                                        !isEdit ?
+                                            <>
+                                                <p>{user?.name}</p>
+                                                <p>{user?.description}</p>
+                                            </>
+                                        :
+                                            <ProfileEdit user={user} setIsEdit={setIsEdit} setUser={setUser}/>
+                                    }
+                                </div>
+                                {
+                                    user.id == loggedUser.id && !isEdit &&
+                                        <button className={styles.editBtn} onClick={() => setIsEdit(true)}>Edit</button>
+                                }
+                            </div>
                         </div>
                         <Link to={`/message/${user?.id}`}>
-                            <button>Message</button>
+                            <button className={styles.msgBtn}>Message</button>
                         </Link>
                     </div>
                 </PageContainer>

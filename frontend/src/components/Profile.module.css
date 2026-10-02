@@ -9,3 +9,48 @@
 .pageText {
     composes: pageText from "../GenericStyles.module.css";
 }
+
+.container {
+    padding: var(--inline-space);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.msgBtn,
+.editBtn {
+    composes: button from "../GenericStyles.module.css";
+}
+
+.editBtn {
+    height: fit-content;
+}
+
+.editBtn:hover {
+    --color: var(--main-color) !important;
+}
+
+.msgBtn {
+    --bg-color: var(--main-color) !important;
+    --color: white !important;
+    font-size: 1.2rem;
+    letter-spacing: 1px;
+}
+
+.msgBtn:hover {
+    --bg-color: white !important;
+    --color: rgb(65, 132, 238) !important;
+}
+
+div:has(> .nameDesc) {
+    display: flex;
+    gap: 16px;
+}
+
+.nameDesc {
+    flex-grow: 1;
+}
+
+.nameDesc input {
+    display: block;
+}
