@@ -58,7 +58,7 @@ export default function UserList() {
                     </div>
                 : users.length == 0 ?
                     <div className={styles.infoContainer}>
-                        <h1>No user found</h1>
+                        <h1 className={styles.pageText}>No user found</h1>
                     </div>
                 : 
                     <PageContainer>
