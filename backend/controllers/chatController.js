@@ -45,6 +45,9 @@ export const getMessages = async (req, res) => {
     const messages = await prisma.message.findMany({
         where: {
             chatId: req.chat.id
+        },
+        orderBy: {
+            dateAdded: "asc"
         }
     })
     res.json({
@@ -109,7 +112,7 @@ export const retrieveMessagesByUserId = async (req, res) => {
             chatId: chat.id
         },
         orderBy: {
-            dateAdded: "desc"
+            dateAdded: "asc"
         }
     })
 
