@@ -10,8 +10,7 @@ Login.module.css for some reason */
     --bg-color: rgb(198, 227, 219) !important;
     font-weight: 600;
     margin-left: auto;
-    margin-top: 12px;
-    margin-bottom: 4px;
+    margin-block: 8px;
 }
 
 .registerContainer {
@@ -27,5 +26,5 @@ Login.module.css for some reason */
 }
 
 .button:hover {
-    --bg-color: white;
+    --bg-color: white !important;
 }

@@ -31,7 +31,7 @@
     --color: rgb(38, 38, 115) !important;
     font-weight: 600;
     margin-left: auto;
-    margin-bottom: 8px;
+    margin-block: 8px;
 }
 
 .header {
