@@ -61,7 +61,7 @@ export default function UserList() {
                         <h1 className={styles.pageText}>No user found</h1>
                     </div>
                 : 
-                    <PageContainer>
+                    <PageContainer  title={"User List"}>
                         {
                             users.map(u => {
                                 return (

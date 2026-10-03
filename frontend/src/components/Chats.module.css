@@ -21,6 +21,10 @@
     padding: 20px var(--inline-space);
 }
 
+.chatsContainer a:not(:last-child) > div {
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
 .chatsContainer a > div > * {
     max-width: calc(100vw - (var(--inline-space)*2));
 }

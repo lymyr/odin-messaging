@@ -11,3 +11,33 @@
     isolation: isolate;
     z-index: 1;
 }
+
+.content {
+    flex-grow: 1;
+}
+
+.title {
+    font-family: ropa-sans;
+    display: flex;
+    justify-content: center;
+    background-color: rgb(24, 51, 102);
+    color: rgb(218, 229, 247);
+    --radius: 99%;
+    border-radius: 0px 0px var(--radius) var(--radius);
+    padding-block: 24px;
+    box-shadow: 0px 1px 4px rgb(74, 74, 74);
+    margin-bottom: 24px;
+
+    animation: snap 1000ms ease-out;
+    transform-origin: top;
+}
+
+@keyframes snap {
+    0% {
+        transform: scaleY(0)
+    }
+
+    100% {
+        transform: scaleY(1);
+    }
+}

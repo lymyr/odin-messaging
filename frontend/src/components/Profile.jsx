@@ -59,17 +59,26 @@ export default function Profile() {
                     <h1 className={styles.pageText}>{error}</h1>
                 </div>
             : 
-                <PageContainer>
+                <PageContainer title={"Profile"}>
                     <div className={styles.container}>
                         <div className={styles.details}>
-                            <h1>{user?.id}</h1>
-                            <div>
+                            <div className={styles.group}>
+                                <p>User ID</p>
+                                <h1>{user?.id}</h1>
+                            </div>
+                            <div className={styles.nameDescBtn}>
                                 <div className={styles.nameDesc}>
                                     {
                                         !isEdit ?
                                             <>
-                                                <p>{user?.name}</p>
-                                                <p>{user?.description}</p>
+                                                <div className={styles.group}>
+                                                    <p>Display Name</p>
+                                                    <p>{user?.name}</p>
+                                                </div>
+                                                <div className={styles.group}>
+                                                    <p>Description</p>
+                                                    <p>{user?.description || "No Description"}</p>
+                                                </div>
                                             </>
                                         :
                                             <ProfileEdit user={user} setIsEdit={setIsEdit} setUser={setUser}/>

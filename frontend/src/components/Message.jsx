@@ -53,7 +53,7 @@ export default function Message() {
     }, [messages])
 
     return (
-        <PageContainer>
+        <PageContainer  title={"Message"}>
             <div className={styles.container}>
                 <h1>{params.userId}</h1>
                 <div className={styles.messageContainer} ref={lastMsgRef}>

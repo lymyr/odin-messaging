@@ -50,18 +50,26 @@ export default function ProfileEdit({user, setIsEdit, setUser}) {
         <>
             <div className={styles.container}>
                 <div>
-                    <input value={formData?.displayName} onChange={(e) => {
-                        setFormData({...formData, displayName: e.target.value})
-                    }}/>
-                    {error && error.displayName && <p>{error.displayName.msg}</p>}
-                    <input value={formData?.description} onChange={(e) => {
-                        setFormData({...formData, description: e.target.value})
-                    }}/>
-                    {error && error.description && <p>{error.description.msg}</p>}
-                    {error && error.generic && <p>{error.generic}</p>}
+                    <div>
+                        <label htmlFor="displayName">Display Name</label>
+                        <input id="displayName" value={formData?.displayName} onChange={(e) => {
+                            setFormData({...formData, displayName: e.target.value})
+                        }}/>
+                        {error && error.displayName && <p className={styles.error}>{error.displayName.msg}</p>}
+                    </div>
+                    <div>
+                        <label htmlFor="description">Description</label>
+                        <input id="description" value={formData?.description} onChange={(e) => {
+                            setFormData({...formData, description: e.target.value})
+                        }}/>
+                    </div>
+                    {error && error.description && <p className={styles.error}>{error.description.msg}</p>}
+                    {error && error.generic && <p className={styles.error}>{error.generic}</p>}
                 </div>
-                <button className={styles.button} onClick={() => setIsEdit(false)} disabled={loading}>Discard</button>
-                <button className={styles.button} onClick={handleSubmit} disabled={loading}>Submit</button>
+                <div>
+                    <button className={styles.button} onClick={() => setIsEdit(false)} disabled={loading}>Discard</button>
+                    <button className={styles.button} onClick={handleSubmit} disabled={loading}>Submit</button>
+                </div>
             </div>
         </>
     )

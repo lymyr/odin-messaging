@@ -18,10 +18,26 @@
 }
 
 .container {
-    display: flex;
-    align-items: center;
+    composes: nameDescBtn from "./Profile.module.css";
 }
 
-.container > div {
+.container div:has(> div > input) {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.container > div:has(label) {
     flex-grow: 1;
+    width: 100%;
+}
+
+.container div:has(> label) {
+    display: flex;
+    flex-direction: column;
+    gap:4px;
+}
+
+.error {
+    composes: errorText from "../GenericStyles.module.css"
 }

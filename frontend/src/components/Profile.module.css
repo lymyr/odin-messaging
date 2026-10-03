@@ -14,6 +14,12 @@
     padding: var(--inline-space);
     display: flex;
     flex-direction: column;
+    gap: 32px;
+}
+
+.container > div {
+    display: flex;
+    flex-direction: column;
     gap: 24px;
 }
 
@@ -24,10 +30,15 @@
 
 .editBtn {
     height: fit-content;
+    border: 1px solid var(--main-color);
 }
 
 .editBtn:hover {
     --color: var(--main-color) !important;
+}
+
+a:has(.msgBtn) {
+    margin: auto;
 }
 
 .msgBtn {
@@ -35,6 +46,8 @@
     --color: white !important;
     font-size: 1.2rem;
     letter-spacing: 1px;
+    margin-top: 24px;
+    padding-inline: 32px !important;
 }
 
 .msgBtn:hover {
@@ -42,15 +55,49 @@
     --color: rgb(65, 132, 238) !important;
 }
 
-div:has(> .nameDesc) {
+.nameDescBtn {
     display: flex;
     gap: 16px;
+    align-items: center;
+    margin-inline: 16px;
 }
 
 .nameDesc {
     flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
-.nameDesc input {
-    display: block;
+.group:has(h1) > *:first-child {
+    margin-bottom: -1.2rem;
+}
+
+.nameDesc input,
+.group {
+    font-size: 1.3rem;
+}
+
+.group h1 {
+    font-size: 2.8rem;
+}
+
+.nameDesc label,
+.group > *:first-child {
+    margin-bottom: -0.25rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+    font-family: ropa-sans, Arial, Helvetica, sans-serif;
+    color: gray;
+}
+
+@media screen and (max-width: 600px) {
+    .nameDescBtn {
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .nameDescBtn > *{
+        width: 100%;
+    }
 }

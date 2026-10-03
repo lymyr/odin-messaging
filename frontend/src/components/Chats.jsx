@@ -67,7 +67,7 @@ export default function Chats() {
                     <h1 className={styles.pageText}>Chat is empty</h1>
                 </div>
             : 
-                <PageContainer>
+                <PageContainer title={"Chats"}>
                     <div className={styles.chatsContainer}>
                         {
                             chats.map(c => {
