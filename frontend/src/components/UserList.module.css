@@ -15,15 +15,29 @@ a:has(.container) {
     color: black;
 }
 
+a:not(:last-child) .container {
+    border-bottom: 1px solid rgb(199, 199, 199);
+}
+
 .container {
-    padding: var(--inline-space)
+    padding: var(--inline-space);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
 }
 
 .container:hover {
     background-color: var(--hover-color);
 }
 
-.container p:first-child {
+.container div > p:first-child {
+    font-family: ropa-sans;
+    color: rgb(74, 74, 74);
+    font-size: 0.75rem;
+    margin-bottom: -8px;
+}
+
+.container div:first-child > p:last-child {
     font-weight: 600;
     font-size: 1.2rem;
 }

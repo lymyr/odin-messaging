@@ -63,7 +63,7 @@ export default function Profile() {
                     <div className={styles.container}>
                         <div className={styles.details}>
                             <div className={styles.group}>
-                                <p>User ID</p>
+                                <p>Username</p>
                                 <h1>{user?.id}</h1>
                             </div>
                             <div className={styles.nameDescBtn}>

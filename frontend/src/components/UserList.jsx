@@ -67,8 +67,14 @@ export default function UserList() {
                                 return (
                                     <Link to={`/users/${u.id}`} key={u.id}>
                                         <div className={styles.container}>
-                                            <p>{u.id}</p>
-                                            <p>{u.name}</p>
+                                            <div>
+                                                <p>Display Name</p>
+                                                <p>{u.name}</p>
+                                            </div>
+                                            <div>
+                                                <p>Username</p>
+                                                <p>{u.id}</p>
+                                            </div>
                                         </div>
                                     </Link>
                                 )
