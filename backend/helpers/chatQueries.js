@@ -3,13 +3,16 @@ import { prisma } from "../lib/prisma.js";
 export async function getChat(participants) {
     const chat = await prisma.chat.findFirst({
         where: {
-            participants: {
-                every: {
-                    userId: {
-                        in: participants
-                    }
-                }
-            }
+            AND: [
+                ...participants.map((id) => ({
+                    participants: { some: { userId: id } },
+                })),
+                {
+                    participants: {
+                        none: { userId: { notIn: participants } },
+                    },
+                },
+            ],
         }
     })
     return chat

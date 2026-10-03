@@ -94,24 +94,29 @@ export const sendMessageByUserId = async (req, res) => {
 
 export const retrieveMessagesByUserId = async (req, res) => {
     const participants = req.decodedToken.id == req.params.userId ? [req.decodedToken.id] : [req.decodedToken.id, req.params.userId]
-   const messages = await prisma.message.findMany({
-        where: {
-            chat: {
-                participants: {
-                    every: {
-                        userId: {
-                            in: participants
-                        }
-                    }
-                }
+    const chat = await getChat(participants)
+    if (!chat) {
+        return res.json({
+            data: {
+                messages: [],
+                token: req.refreshToken
             }
-        }
-   })
+        })
+    }
 
-   res.json({
+    const messages = await prisma.message.findMany({
+        where: {
+            chatId: chat.id
+        },
+        orderBy: {
+            dateAdded: "desc"
+        }
+    })
+
+    res.json({
         data: {
             messages,
             token: req.refreshToken
         }
-   })
+    })
 }
