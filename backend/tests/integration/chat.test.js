@@ -15,11 +15,18 @@ const receiver = {
     password: "dragon ballz"
 }
 
+const thirdParty = {
+    id: "greatestswordsman",
+    name: "roronoa zoro",
+    password: "one piece"
+}
+
 beforeAll(async () => {
     await prisma.user.createMany({
         data: [
             messenger,
-            receiver
+            receiver,
+            thirdParty
         ]
     })
 })
@@ -175,6 +182,28 @@ describe("/chats", () => {
             })
             expect(res.body.data.messages).toHaveLength(3)
             expect(chats).toHaveLength(1)
+        })
+
+        describe("with self message", () => {
+            beforeAll(async () => {
+                jest.restoreAllMocks()
+                jest.spyOn(jwt, "verify").mockReturnValueOnce({...thirdParty, iat: 123, exp: 234})
+                await request(app)
+                    .post(`/v1/chats/user/${thirdParty.id}`)
+                    .set("Authorization", "bearer token")
+                    .send({message: "talking to myself"})
+            })
+
+            afterAll(() => {
+                jest.restoreAllMocks()
+            })
+
+            test("doesn't retrieve self messages", async () => {
+                const res = await request(app)
+                    .get(`/v1/chats/user/${thirdParty.id}`)
+                    .set("Authorization", "bearer token")
+                expect(res.body.data.messages).toHaveLength(0)
+            })
         })
 
         describe("jwt error", () => {
