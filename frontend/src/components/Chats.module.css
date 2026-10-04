@@ -54,3 +54,20 @@
     font-size: 0.8rem;
     margin-top: -4px;
 }
+
+.msgHeader {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.msgHeader > p {
+    font-size: 0.75rem;
+    opacity: 0.75;
+}
+
+
+.text span {
+    font-weight: bold;
+    font-size: 0.9rem;
+}

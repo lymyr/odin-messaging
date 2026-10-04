@@ -70,7 +70,10 @@ export default function Chats() {
                 <PageContainer title={"Chats"}>
                     <div className={styles.chatsContainer}>
                         {
-                            chats.map(c => {
+                            chats
+                            .sort((a, b) => {
+                                return a.messages[0].dateAdded < b.messages[0].dateAdded
+                            }).map(c => {
                                 return (
                                     <Link key={c.id} to={`/chats/${c.id}/${c.participants.filter(participant => participant.user.id != user.id || c.participants.length == 1)[0].user.id}`}>
                                         <div>
@@ -79,14 +82,17 @@ export default function Chats() {
                                                     .filter(participant => participant.user.id != user.id || c.participants.length == 1)
                                                     .map(participant => {
                                                         return (
-                                                            <div className={styles.user} key={participant.user.id}>
-                                                                <p>{participant.user.name}</p>
-                                                                <p>{participant.user.id}</p>
+                                                            <div className={styles.msgHeader} key={participant.user.id}>
+                                                                <div className={styles.user}>
+                                                                    <p>{participant.user.name}</p>
+                                                                    <p>{participant.user.id}</p>
+                                                                </div>
+                                                                <p>{c.messages[0].dateAdded}</p>
                                                             </div>     
                                                         )
                                                     })
                                             }
-                                            <p className={styles.text}>{c.messages[0].text}</p>
+                                            <p className={styles.text}><span>{c.messages[0].user.id == user.id ? "You" : c.messages[0].user.id}: </span>{c.messages[0].text}</p>
                                         </div>
                                     </Link>
                                 )

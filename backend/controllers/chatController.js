@@ -25,6 +25,13 @@ export const getChats = async (req, res) => {
                 take: 1,
                 select: {
                     text: true,
+                    dateAdded: true,
+                    user: {
+                        select: {
+                            id: true,
+                            name: true
+                        }
+                    }
                 },
                 orderBy: {
                     dateAdded: "desc"
