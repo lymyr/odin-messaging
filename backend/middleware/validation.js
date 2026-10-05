@@ -18,6 +18,7 @@ class Validation {
 
 export class AccountValidation extends Validation {
     static username = () => body("username").trim().notEmpty().withMessage("Please provide a username")
+        .isLength({max: 20}).withMessage("Username should not exceed 20 characters")
         .custom(username => {
             if (username.split("").includes(" "))
                 throw new Error("Username must not include spaces")
@@ -60,10 +61,16 @@ export class AccountValidation extends Validation {
         })
 
     static confirmPassword = body("confirmPassword").notEmpty().withMessage("Please confirm your password")
-        .custom((cPass, {req}) => cPass == req.body.password)
+        .custom((cPass, {req}) => {
+            if (cPass == req.body.password)
+                return true
+            throw new Error("Passwords do not match!")
+        })
 
     
-    static displayName = body("displayName").trim().notEmpty().withMessage("Display name must not be empty")
+    static displayName = body("displayName").trim()
+        .notEmpty().withMessage("Display name must not be empty")
+        .isLength({max: 25}).withMessage("Display name should not exceed 25 characters")
 
     static description = body("description").isLength({max: 67}).withMessage("description should not exceed 67 characters")
 
