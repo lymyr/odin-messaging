@@ -76,7 +76,7 @@ export default function Message() {
                                             { message.userId != user.id &&
                                                 <p className={styles.otherMsgName}>{message.userId}</p>
                                             }
-                                            <p>{message.dateAdded}</p>
+                                            <p>{new Date(message.dateAdded).toLocaleString()}</p>
                                         </div>
                                         <p>{message.text}</p>
                                         

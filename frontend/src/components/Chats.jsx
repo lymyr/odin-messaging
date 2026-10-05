@@ -87,7 +87,7 @@ export default function Chats() {
                                                                     <p>{participant.user.name}</p>
                                                                     <p>{participant.user.id}</p>
                                                                 </div>
-                                                                <p>{c.messages[0].dateAdded}</p>
+                                                                <p>{new Date(c.messages[0].dateAdded).toLocaleString()}</p>
                                                             </div>     
                                                         )
                                                     })
