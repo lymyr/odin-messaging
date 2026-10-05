@@ -60,7 +60,7 @@ h1, h2, h3, h4, h5, h6 {
 
 :root {
     font-family: Arial, Helvetica, sans-serif;
-    background-color: rgb(230, 232, 235);
+    background-color: rgb(240, 242, 245);
     --main-color: rgb(37, 89, 157);
     --inline-space: 16px;
     --max-width: 1080px;

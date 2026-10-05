@@ -13,14 +13,14 @@ export default function Message() {
     const [messages, setMessages, loading, error] = useFetchMsgs()
 
     useEffect(() => {
-        lastMsgRef?.current.scrollIntoView({ behavior: "smooth" })
+        lastMsgRef?.current?.scrollIntoView({ behavior: "smooth" })
     }, [messages])
 
     return (
         <PageContainer  title={"Message"}>
             <div className={styles.container}>
                 <h1>{params.userId}</h1>
-                <div className={styles.messageContainer} ref={lastMsgRef}>
+                <div className={styles.messageContainer}>
                     {
                         loading ?
                             <div className={styles.loading}></div>

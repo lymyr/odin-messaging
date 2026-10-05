@@ -1,12 +1,15 @@
-div:has(> .container) {
+/* .content from PageContainer.module.css */
+div:has(> .container) { 
     display: flex;
+    flex-direction: column;
 }
 
 .container {
-    display: grid;
-    grid-template-rows: 49px 1fr 42px;
-    padding: 12px var(--inline-space);
+    display: flex;
+    flex-direction: column;
     flex-grow: 1;
+
+    padding: 12px var(--inline-space);
 }
 
 .container h1 {
@@ -15,11 +18,11 @@ div:has(> .container) {
 
 .messageContainer {
     padding: 12px;
-    flex-grow: 1;
-    max-height: 75vh;
-    overflow-y: scroll;
-
     display: flex;
+    flex-grow: 1;
+    max-height: 512px;
+
+    overflow-y: scroll;
     flex-direction: column;
     gap: 12px;
 }
@@ -51,10 +54,6 @@ div:has(> .container) {
     font-weight: 600;
 }
 
-.inputContainer {
-    position: relative;
-}
-
 .inputContainer form {
     display: flex;
     padding-top: 8px;
@@ -71,4 +70,10 @@ div:has(> .container) {
 
 .error {
     composes: errorText from "../GenericStyles.module.css";
+}
+
+@media screen and (min-width: 700px) {
+    .messageContainer {
+        max-height: 632px;
+    }
 }
