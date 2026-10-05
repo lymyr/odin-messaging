@@ -1,8 +1,8 @@
 # todo: revise later
 
 # deployment
-- **frontend:** -
-- **backend:** -
+- **frontend:** https://envelopesimple.netlify.app/
+- **backend:** https://odin-messaging.onrender.com/
 
 # backend
 ## notable details
