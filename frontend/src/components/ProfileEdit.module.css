@@ -24,7 +24,7 @@ div:has(> .button) {
 }
 
 .container {
-    composes: nameDescBtn from "./Profile.module.css";
+    composes: nameDescBtn from "../pages/Profile.module.css";
 }
 
 .container div:has(> div > input) {

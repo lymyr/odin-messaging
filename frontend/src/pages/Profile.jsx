@@ -1,50 +1,15 @@
-import { useContext, useEffect, useState } from "react"
-import { Link, useParams } from "react-router"
+import { useContext, useState } from "react"
+import { Link } from "react-router"
 import CredContext from "../contexts/CredContext"
-import ProfileEdit from "./ProfileEdit"
+import ProfileEdit from "../components/ProfileEdit"
 import styles from "./Profile.module.css"
-import PageContainer from "./PageContainer"
+import PageContainer from "../components/PageContainer"
+import useFetchProfile from "../hooks/useFetchProfile.js"
 
 export default function Profile() {
-    const [user, setUser] = useState()
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState()
-    const [token, setToken, loggedUser] = useContext(CredContext)
+    const [user, setUser, loading, error] = useFetchProfile();
+    const [, , loggedUser] = useContext(CredContext)
     const [isEdit, setIsEdit] = useState(false)
-    const params = useParams()
-
-    useEffect(() => {
-        const controller = new AbortController();
-
-        (async () => {
-            setLoading(true)
-            try {
-                const url = import.meta.env.DEV ? import.meta.env.VITE_DEV_API_URL : import.meta.env.VITE_API_URL;
-                const res = await fetch(`${url}/v1/users/${params.userId}`, {
-                    headers: {
-                        "authorization": `bearer ${token}`,
-                    },
-                    signal: controller.signal
-                })
-                if (!res.ok) {
-                    throw res
-                }
-                const json = await res.json()
-                setUser(json.data.user)
-                setToken(json.data.token)
-                setError()
-            }
-            catch(e) {
-                setError(e.message)
-            }
-            finally {
-                setLoading(false)
-            }
-        })()
-
-        return () => controller.abort()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.userId])
 
     return (
         <>

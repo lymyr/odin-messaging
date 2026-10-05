@@ -1,10 +1,10 @@
 import App from "./App";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Chats from "./components/Chats"
-import UserList from "./components/UserList"
-import Profile from "./components/Profile";
-import Message from "./components/Message";
+import Chats from "./pages/Chats"
+import UserList from "./pages/UserList"
+import Profile from "./pages/Profile";
+import Message from "./pages/Message";
 
 export default [
     {

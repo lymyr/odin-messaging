@@ -1,52 +1,16 @@
-import { useContext, useEffect, useRef, useState } from "react"
-import { useParams } from "react-router"
-import CredContext from "../contexts/CredContext"
-import InputSend from "./InputSend"
-import PageContainer from "./PageContainer"
+import { useContext, useEffect, useRef } from "react"
+import CredContext from "../contexts/CredContext.js"
+import InputSend from "../components/InputSend.jsx"
+import PageContainer from "../components/PageContainer.jsx"
 import styles from "./Message.module.css"
+import useFetchMsgs from "../hooks/useFetchMsgs.js"
+import { useParams } from "react-router"
 
 export default function Message() {
     const params = useParams()
-    const [token, setToken, user] = useContext(CredContext)
-    const [messages, setMessages] = useState([])
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState()
+    const [, , user] = useContext(CredContext)
     const lastMsgRef = useRef()
-
-    useEffect(() => {
-        const controller = new AbortController();
-
-        (async () => {
-            setLoading(true)
-            try {
-                const url = import.meta.env.DEV ? import.meta.env.VITE_DEV_API_URL : import.meta.env.VITE_API_URL;
-                const api_url = params.chatId ? `${url}/v1/chats/${params.chatId}` : `${url}/v1/chats/user/${params.userId}`
-                const res = await fetch(api_url, {
-                    headers: {
-                        "authorization": `bearer ${token}`,
-                    },
-                    signal: controller.signal
-                })
-                if (!res.ok) {
-                    throw res
-                }
-                const json = await res.json()
-                setMessages(json.data.messages)
-                setToken(json.data.token)
-                setError()
-            }
-            catch(e) {
-                setError(e.message)
-            }
-            finally {
-                setLoading(false)
-            }
-        })()
-
-        return () => controller.abort()
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [params.userId])
+    const [messages, setMessages, loading, error] = useFetchMsgs()
 
     useEffect(() => {
         lastMsgRef?.current.scrollIntoView({ behavior: "smooth" })
