@@ -131,7 +131,7 @@ describe("account edit", () => {
         }
 
         const res = await request(app)
-            .patch(`/v1/users`)
+            .put(`/v1/users`)
             .set("Authorization", "bearer token")
             .send(editDetails)
         
