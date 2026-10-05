@@ -24,18 +24,20 @@
     flex-direction: column;
 }
 
-/* need to add !important since somehow genericstyles overwrites variables :/ */
 .button {
     composes: button from "../GenericStyles.module.css";
-    --bg-color: rgb(205, 211, 233) !important;
-    --color: rgb(38, 38, 115) !important;
+}
+
+button.button {
+    --bg-color: rgb(205, 211, 233);
+    --color: rgb(38, 38, 115);
     font-weight: 600;
     margin-left: auto;
     margin-block: 8px;
 }
 
-.button:hover {
-    --bg-color: white !important;
+button.button:hover {
+    --bg-color: white;
 }
 
 .header {

@@ -1,13 +1,14 @@
-/* put generic styles on top since it causes some bugs for
-Login.module.css for some reason */
 .error {
     composes: errorText from "../GenericStyles.module.css";
 }
 
 .button {
     composes: button from "../GenericStyles.module.css";
-    --color: rgb(24, 125, 98) !important;
-    --bg-color: rgb(198, 227, 219) !important;
+}
+
+button.button {
+    --color: rgb(24, 125, 98);
+    --bg-color: rgb(198, 227, 219);
     font-weight: 600;
     margin-left: auto;
     margin-block: 8px;
@@ -25,6 +26,6 @@ Login.module.css for some reason */
     composes: inputLabel from "./Login.module.css";
 }
 
-.button:hover {
-    --bg-color: white !important;
+button.button:hover {
+    --bg-color: white;
 }

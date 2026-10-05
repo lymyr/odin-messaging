@@ -19,8 +19,8 @@ div:has(> .button) {
 }
 
 .button:last-of-type:hover {
-    --bg-color: white !important;
-    --color: rgb(42, 117, 42) !important;
+    --bg-color: white;
+    --color: rgb(42, 117, 42);
 }
 
 .container {

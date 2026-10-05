@@ -23,14 +23,17 @@
 
 .button {
     composes: button from "../GenericStyles.module.css";
-    --bg-color: var(--main-color) !important;
-    --color: white !important;
+}
+
+button.button {
+    --bg-color: var(--main-color);
+    --color: white;
     margin-left: 12px;
 }
 
-.button:hover {
-    --color: rgb(78, 115, 216) !important;
-    --bg-color: white !important; 
+button.button:hover {
+    --color: rgb(78, 115, 216);
+    --bg-color: white; 
 }
 
 .input {

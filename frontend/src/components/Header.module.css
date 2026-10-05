@@ -64,9 +64,18 @@ header:has(.header) {
 
 .button {
     composes: button from "../GenericStyles.module.css";
-    padding: 2px 6px !important;
-    --bg-color: rgb(33, 65, 119) !important;
-    --color: white !important;
+}
+
+button.button {
+    padding: 2px 6px;
+    --bg-color: rgb(33, 65, 119);
+    --color: white;
+}
+
+button.button:not(:disabled):hover {
+    --bg-color: white;
+    --color: rgb(57, 108, 198);
+    box-shadow: 1px 1px 4px rgb(56, 56, 56);
 }
 
 @media screen and (max-width: 750px){
